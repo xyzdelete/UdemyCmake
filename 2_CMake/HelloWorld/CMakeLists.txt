@@ -1,10 +1,3 @@
-# 0.) Create source and CMakeFile
-# 1.) mkdir build
-# 2.) cd build
-# 3.) cmake .. Generating the build files / configure the Project
-# 4.) cmake --build .
-# 5.) ./Executable
-
 cmake_minimum_required(VERSION 3.22)
 
 project(
@@ -13,4 +6,5 @@ project(
     LANGUAGES C CXX
 )
 
-add_executable(Executable main.cpp)
+add_subdirectory(src)
+add_subdirectory(app)
