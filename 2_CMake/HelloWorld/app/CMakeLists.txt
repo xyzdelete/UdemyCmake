@@ -11,4 +11,5 @@ target_link_libraries(
     ${EXECUTABLE_NAME}
     PUBLIC
     ${LIBRARY_NAME}
+    nlohmann_json
 )
