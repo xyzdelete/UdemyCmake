@@ -9,7 +9,6 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(USE_CPM "Whether to use CPM" ON)
 
 set(LIBRARY_NAME Library)
 set(EXECUTABLE_NAME Executable)
@@ -22,6 +21,9 @@ option(ENABLE_ADDRESS_SANITIZER "Enable address sanitizer" ON)
 option(ENABLE_UNDEFINED_SANITIZER "Enable undefined sanitizer" ON)
 
 option(ENABLE_LTO "Enable LTO" ON)
+
+option(USE_CPM "Whether to use CPM" OFF)
+option(USE_CONAN "Whether to use CONAN" ON)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(AddGitSubmodule)
@@ -48,7 +50,7 @@ if(
     add_sanitizer_flags()
 endif()
 
-if(USE_CPM)
+if(${USE_CPM})
     message(STATUS "Using CPM")
     include(CPM)
     cpmaddpackage("gh:nlohmann/json#v3.11.3")
@@ -56,6 +58,14 @@ if(USE_CPM)
     cpmaddpackage("gh:gabime/spdlog#v1.13.0")
     cpmaddpackage("gh:jarro2783/cxxopts#v3.1.1")
     cpmaddpackage("gh:catchorg/Catch2#v3.5.2")
+elseif(${USE_CONAN})
+    message(STATUS "Using Conan")
+    include(${CMAKE_BINARY_DIR}/conan_toolchain.cmake)
+    find_package(nlohmann_json REQUIRED)
+    find_package(fmt REQUIRED)
+    find_package(spdlog REQUIRED)
+    find_package(cxxopts REQUIRED)
+    find_package(Catch2 REQUIRED)
 else()
     message(STATUS "Using FetchContent")
     FetchContent_Declare(
