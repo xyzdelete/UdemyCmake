@@ -19,8 +19,6 @@ function(
         -Wpedantic
     )
 
-    set(GCC_WARNINGS ${CLANG_WARNINGS})
-
     if(${ENABLED_AS_ERRORS})
         set(MSVC_WARNINGS
             ${MSVC_WARNINGS}

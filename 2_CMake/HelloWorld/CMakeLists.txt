@@ -14,7 +14,10 @@ set(EXECUTABLE_NAME Executable)
 
 option(ENABLE_TESTING "Enable a Unit Testing Build" ON)
 option(ENABLE_WARNINGS "Enable warnings" ON)
-option(ENABLE_WARNINGS_AS_ERRORS "Enable as errors" ON)
+option(ENABLE_WARNINGS_AS_ERRORS "Enable as errors" OFF)
+
+option(ENABLE_ADDRESS_SANITIZER "Enable address sanitizer" ON)
+option(ENABLE_UNDEFINED_SANITIZER "Enable undefined sanitizer" ON)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(AddGitSubmodule)
@@ -24,6 +27,16 @@ include(Docs)
 if(${ENABLE_WARNINGS})
     include(Warnings)
 endif()
+
+if(
+    ${ENABLE_ADDRESS_SANITIZER}
+    OR
+    ${ENABLE_UNDEFINED_SANITIZER}
+)
+    include(Sanitizers)
+    add_sanitizer_flags()
+endif()
+
 
 FetchContent_Declare(
     nlohmann_json

@@ -12,6 +12,9 @@ int main()
     std::cout << project_name << std::endl;
     std::cout << project_version << std::endl;
 
+    int x[2];
+    x[2] = 2;
+
     std::cout << "JSON Lib Version: "
         << NLOHMANN_JSON_VERSION_MAJOR
         << "."
