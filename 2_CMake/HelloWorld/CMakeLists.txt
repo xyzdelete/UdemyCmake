@@ -9,6 +9,8 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+option(USE_CPM "Whether to use CPM" ON)
+
 set(LIBRARY_NAME Library)
 set(EXECUTABLE_NAME Executable)
 
@@ -46,43 +48,53 @@ if(
     add_sanitizer_flags()
 endif()
 
+if(USE_CPM)
+    message(STATUS "Using CPM")
+    include(CPM)
+    cpmaddpackage("gh:nlohmann/json#v3.11.3")
+    cpmaddpackage("gh:fmtlib/fmt#10.2.1")
+    cpmaddpackage("gh:gabime/spdlog#v1.13.0")
+    cpmaddpackage("gh:jarro2783/cxxopts#v3.1.1")
+    cpmaddpackage("gh:catchorg/Catch2#v3.5.2")
+else()
+    message(STATUS "Using FetchContent")
+    FetchContent_Declare(
+        nlohmann_json
+        GIT_REPOSITORY https://github.com/nlohmann/json
+        GIT_TAG v3.11.3
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_Declare(
+        FMT
+        GIT_REPOSITORY https://github.com/fmtlib/fmt
+        GIT_TAG 10.2.1
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog
+        GIT_TAG v1.13.0
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_Declare(
+        cxxopts
+        GIT_REPOSITORY https://github.com/jarro2783/cxxopts
+        GIT_TAG v3.1.1
+        GIT_SHALLOW TRUE
+    )
+    FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2
+        GIT_TAG v3.5.2
+        GIT_SHALLOW TRUE
+    )
 
-FetchContent_Declare(
-    nlohmann_json
-    GIT_REPOSITORY https://github.com/nlohmann/json
-    GIT_TAG v3.11.3
-    GIT_SHALLOW TRUE
-)
-FetchContent_Declare(
-    FMT
-    GIT_REPOSITORY https://github.com/fmtlib/fmt
-    GIT_TAG 10.2.1
-    GIT_SHALLOW TRUE
-)
-FetchContent_Declare(
-    spdlog
-    GIT_REPOSITORY https://github.com/gabime/spdlog
-    GIT_TAG v1.13.0
-    GIT_SHALLOW TRUE
-)
-FetchContent_Declare(
-    cxxopts
-    GIT_REPOSITORY https://github.com/jarro2783/cxxopts
-    GIT_TAG v3.1.1
-    GIT_SHALLOW TRUE
-)
-FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2
-    GIT_TAG v3.5.2
-    GIT_SHALLOW TRUE
-)
-
-FetchContent_MakeAvailable(nlohmann_json)
-FetchContent_MakeAvailable(FMT)
-FetchContent_MakeAvailable(spdlog)
-FetchContent_MakeAvailable(cxxopts)
-FetchContent_MakeAvailable(Catch2)
+    FetchContent_MakeAvailable(nlohmann_json)
+    FetchContent_MakeAvailable(FMT)
+    FetchContent_MakeAvailable(spdlog)
+    FetchContent_MakeAvailable(cxxopts)
+    FetchContent_MakeAvailable(Catch2)
+endif()
 
 add_subdirectory(configured)
 add_subdirectory(dependencies)
