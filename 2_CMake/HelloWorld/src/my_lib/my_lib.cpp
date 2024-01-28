@@ -3,6 +3,10 @@
 
 #include <nlohmann/json.hpp>
 
+/**
+ * @brief Prints out hello world and tests the JSON
+ *
+ */
 void print_hello_world()
 {
     std::cout << "Hello World!" << std::endl;

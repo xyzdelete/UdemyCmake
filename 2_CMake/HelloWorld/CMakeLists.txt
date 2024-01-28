@@ -14,6 +14,7 @@ set(EXECUTABLE_NAME Executable)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(AddGitSubmodule)
 include(FetchContent)
+include(Docs)
 
 FetchContent_Declare(
     nlohmann_json
@@ -45,6 +46,7 @@ FetchContent_Declare(
     GIT_TAG v3.5.2
     GIT_SHALLOW TRUE
 )
+
 FetchContent_MakeAvailable(nlohmann_json)
 FetchContent_MakeAvailable(FMT)
 FetchContent_MakeAvailable(spdlog)
