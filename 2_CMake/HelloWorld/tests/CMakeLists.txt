@@ -1,4 +1,4 @@
-if(ENABLE_TESTING)
+if(${ENABLE_TESTING})
     set(TEST_MAIN unit_tests)
     set(TEST_SOURCES main.cpp)
     set(TEST_INCLUDES ./)

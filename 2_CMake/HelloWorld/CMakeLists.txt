@@ -11,14 +11,19 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(LIBRARY_NAME Library)
 set(EXECUTABLE_NAME Executable)
+
+option(ENABLE_TESTING "Enable a Unit Testing Build" ON)
+option(ENABLE_WARNINGS "Enable warnings" ON)
+option(ENABLE_WARNINGS_AS_ERRORS "Enable as errors" ON)
+
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-set(ENABLE_TESTING "ENABLE a Unit Testing Build" ON)
-
 include(AddGitSubmodule)
 include(FetchContent)
 include(Docs)
 
+if(${ENABLE_WARNINGS})
+    include(Warnings)
+endif()
 
 FetchContent_Declare(
     nlohmann_json
