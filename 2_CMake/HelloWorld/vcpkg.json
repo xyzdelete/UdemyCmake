@@ -1,0 +1,27 @@
+{
+    "name": "cpptemplateproject",
+    "version-string": "1.0.0",
+    "dependencies": [
+        {
+            "name": "cxxopts",
+            "version>=": "3.1.1"
+        },
+        {
+            "name": "fmt",
+            "version>=": "10.2.1"
+        },
+        {
+            "name": "nlohmann-json",
+            "version>=": "3.11.3"
+        },
+        {
+            "name": "spdlog",
+            "version>=": "1.13.0"
+        },
+        {
+            "name": "catch2",
+            "version>=": "3.5.2"
+        }
+    ],
+    "builtin-baseline": "7032c5759f823fc8699a5c37d5f7072464ccb9a8"
+}
