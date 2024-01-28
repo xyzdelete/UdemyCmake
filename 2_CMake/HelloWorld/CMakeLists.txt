@@ -19,6 +19,8 @@ option(ENABLE_WARNINGS_AS_ERRORS "Enable as errors" OFF)
 option(ENABLE_ADDRESS_SANITIZER "Enable address sanitizer" ON)
 option(ENABLE_UNDEFINED_SANITIZER "Enable undefined sanitizer" ON)
 
+option(ENABLE_LTO "Enable LTO" ON)
+
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(AddGitSubmodule)
 include(FetchContent)
@@ -34,6 +36,13 @@ if(
     ${ENABLE_UNDEFINED_SANITIZER}
 )
     include(Sanitizers)
+    add_sanitizer_flags()
+endif()
+
+if(
+    ${ENABLE_LTO}
+)
+    include(LTO)
     add_sanitizer_flags()
 endif()
 
